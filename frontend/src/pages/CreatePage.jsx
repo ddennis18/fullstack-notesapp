@@ -1,6 +1,8 @@
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import api from '../lib/axios.js'
+import { Link } from 'react-router'
+import { ArrowLeft } from "lucide-react";
 
 const CreatePage = () => {
   const [newNote, setNewNote] = useState({ title: '', content: '' })
@@ -16,7 +18,8 @@ const CreatePage = () => {
       const result = await api.post('/notes', newNote)
       console.log(result.data.message)
       toast.success('Note created successfully')
-    } catch (_) {
+    } catch (error) {
+      console.log(error)
       toast.error('Failed to create note')
     } finally {
       setIsDisabled(false)
@@ -32,6 +35,7 @@ const CreatePage = () => {
           handleSubmit()
         }}
       >
+        <Link to='/' className='link w-fit'><ArrowLeft className='inline-block size-4'/> Back to Homepage</Link>
         <label htmlFor='' className='floating-label'>
           Title:
         </label>

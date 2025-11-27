@@ -33,9 +33,12 @@ const HomePage = () => {
       {notes.length > 0 && (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {notes.map(n => {
-            return <NoteCard key={n._id} note={n}></NoteCard>
+            return <NoteCard key={n._id} note={n} setNotes={setNotes}></NoteCard>
           })}
         </div>
+      )}
+      {notes.length == 0 && !loading && (
+        <h1 className='text-4xl text-primary-content font-semibold'>No Notes Yet...</h1>
       )}
     </div>
   )
