@@ -5,13 +5,21 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+//setup the app
 const app = express()
+
+//connect to mongo DB
 connectDB()
 const port = process.env.PORT;
+
+// use cases for middle ware
+// auth check
+// rate limiting
 
 //json middleware so we can access json in the body
 app.use(express.json())
 
+//set the router for the notes
 app.use('/api/notes', notesRouter)
 
 app.listen(port, ()=>{

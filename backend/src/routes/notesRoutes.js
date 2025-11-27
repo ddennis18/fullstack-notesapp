@@ -9,10 +9,10 @@ import {
 
 export const notesRouter = express.Router()
 
-//retrie all note
+//retrieve all note
 notesRouter.get('/', getAllNotes)
 
-//retrie a specific note
+//retrive a specific note
 notesRouter.get('/:id', getNote)
 
 //create note
