@@ -1,7 +1,9 @@
 import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+
 import { notesRouter } from './routes/notesRoutes.js'
 import { connectDB } from './config/db.js'
-import dotenv from 'dotenv'
 
 dotenv.config()
 
@@ -18,6 +20,7 @@ const port = process.env.PORT;
 
 //json middleware so we can access json in the body
 app.use(express.json())
+app.use(cors())
 
 //set the router for the notes
 app.use('/api/notes', notesRouter)
