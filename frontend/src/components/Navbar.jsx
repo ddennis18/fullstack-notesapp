@@ -7,7 +7,7 @@ function Navbar () {
       <div className='mx-auto max-w-6xl p-4'>
         <div className='flex flex-row items-center justify-between'>
           <h1 className='text-3xl font-bold text-primar font-mono tracking-tight'>
-            Clarity
+            Notes
           </h1>
           <div className='flex items-center'>
             <Link to='/create' className='btn btn-primary'>
