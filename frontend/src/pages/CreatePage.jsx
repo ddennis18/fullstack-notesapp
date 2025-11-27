@@ -1,6 +1,6 @@
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
+import api from '../lib/axios.js'
 
 const CreatePage = () => {
   const [newNote, setNewNote] = useState({ title: '', content: '' })
@@ -9,14 +9,11 @@ const CreatePage = () => {
   const handleSubmit = async () => {
     try {
       setIsDisabled(true)
-      if(!newNote.title.trim() || !newNote.title.trim()){
+      if (!newNote.title.trim() || !newNote.title.trim()) {
         toast.error('All fields are required')
-        return;
+        return
       }
-      const result = await axios.post(
-        'http://localhost:5001/api/notes/',
-        newNote
-      )
+      const result = await api.post('/notes', newNote)
       console.log(result.data.message)
       toast.success('Note created successfully')
     } catch (_) {
