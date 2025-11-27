@@ -1,18 +1,28 @@
 import axios from 'axios'
+import toast from 'react-hot-toast'
 import { useState } from 'react'
 
 const CreatePage = () => {
   const [newNote, setNewNote] = useState({ title: '', content: '' })
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const handleSubmit = async () => {
     try {
+      setIsDisabled(true)
+      if(!newNote.title.trim() || !newNote.title.trim()){
+        toast.error('All fields are required')
+        return;
+      }
       const result = await axios.post(
         'http://localhost:5001/api/notes/',
         newNote
       )
       console.log(result.data.message)
-    } catch (error) {
-      console.log('error creating note', error)
+      toast.success('Note created successfully')
+    } catch (_) {
+      toast.error('Failed to create note')
+    } finally {
+      setIsDisabled(false)
     }
   }
 
@@ -47,7 +57,11 @@ const CreatePage = () => {
           placeholder='Enter content for the note'
           onChange={e => setNewNote({ ...newNote, content: e.target.value })}
         />
-        <button type='submit' className='btn btn-primary w-min self-end'>
+        <button
+          type='submit'
+          className='btn btn-primary w-min self-end mt-1'
+          disabled={isDisabled}
+        >
           Send
         </button>
       </form>
