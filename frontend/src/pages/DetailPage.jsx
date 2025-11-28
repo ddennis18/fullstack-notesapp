@@ -1,13 +1,14 @@
 import toast from 'react-hot-toast'
 import { useEffect, useState } from 'react'
 import api from '../lib/axios.js'
-import { Link, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import { ArrowLeft, LoaderIcon } from 'lucide-react'
 
 const DetailPage = () => {
   const [note, setNote] = useState({ title: '', content: '' })
   const [isDisabled, setIsDisabled] = useState(false)
   const [loadingState, setLoadingState] = useState(true)
+  const navigate = useNavigate()
 
   const { id } = useParams()
 
@@ -31,7 +32,7 @@ const DetailPage = () => {
     try {
       setIsDisabled(true)
       if (!note.title.trim() || !note.title.trim()) {
-        toast.error('All fields are required')
+        toast.error('Add a title and content')
         return
       }
       await api.put(`/notes/${id}`, note)
@@ -51,6 +52,7 @@ const DetailPage = () => {
     try {
       await api.delete(`/notes/${id}`)
       toast.success('Deleted note successfully')
+      navigate('/')//navigate the user back to the home page
     } catch (error) {
       console.log(error)
       toast.error('Failed to delete note')
